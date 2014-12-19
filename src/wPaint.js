@@ -458,10 +458,14 @@
       this.ctxTemp.strokeStyle = this.options.strokeStyle;
       this.ctxTemp.lineWidth = this.options.lineWidth * factor;
     },
-    
-    _drawShapeUp: function () {
-      this.ctx.drawImage(this.canvasTemp, this.canvasTempLeftNew, this.canvasTempTopNew);
-      this.$canvasTemp.hide();
+
+    _drawShapeUp: function (e) {
+      e.width = Math.abs(e.pageX - this.canvasTempLeftOriginal);
+      e.height = Math.abs(e.pageY - this.canvasTempTopOriginal);
+      if(e.width !== 0 && e.heigth !== 0) {
+        this.ctx.drawImage(this.canvasTemp, this.canvasTempLeftNew, this.canvasTempTopNew);
+        this.$canvasTemp.hide();
+      }
     },
 
     /****************************************
