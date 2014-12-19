@@ -20,7 +20,7 @@
     this.generate();
     this._init();
   }
-  
+
   Paint.prototype = {
     generate: function () {
       if (this.init) { return this; }
@@ -39,7 +39,7 @@
         _this[canvasName] = document.createElement('canvas');
         _this[ctxName] = _this[canvasName].getContext('2d');
         _this['$' + canvasName] = $(_this[canvasName]);
-        
+
         _this['$' + canvasName]
         .attr('class', 'wPaint-canvas' + (name ? '-' + name : ''))
         .attr('width', _this.width + 'px')
@@ -80,16 +80,16 @@
 
       // create bg canvases
       createCanvas('bg');
-      
+
       // create drawing canvas
       createCanvas('')
       .on('mousedown', canvasMousedown)
       .bindMobileEvents();
-      
+
       // create temp canvas for drawing shapes temporarily
       // before transfering to main canvas
       createCanvas('temp').hide();
-      
+
       // event handlers for drawing
       $(document)
       .on('mousemove', documentMousemove)
@@ -117,7 +117,7 @@
       this._fixMenus();
 
       // initialize active menu button
-      this.menus.primary._getIcon(this.options.mode).trigger('click');      
+      this.menus.primary._getIcon(this.options.mode).trigger('click');
     },
 
     resize: function () {
@@ -153,7 +153,7 @@
 
       // remove anything beginning with "wPaint-theme-" first
       this.$el.attr('class', (this.$el.attr('class') || '').replace(/wPaint-theme-.+\s|wPaint-theme-.+$/, ''));
-      
+
       // add each theme
       for (i = 0, ii = theme.length; i < ii; i++) {
         this.$el.addClass('wPaint-theme-' + theme[i]);
@@ -204,10 +204,10 @@
           _this._addUndo();
         }
       }
-      
+
       ctxType = 'ctx' + (ctxType || '').capitalize();
       ctx = this[ctxType];
-      
+
       if (window.rgbHex(img)) {
         ctx.clearRect(0, 0, this.width, this.height);
         ctx.fillStyle = img;
@@ -223,7 +223,7 @@
 
     setBg: function (img, resize) {
       if (!img) { return true; }
-      
+
       this.setImage(img, 'bg', resize, true);
     },
 
@@ -335,7 +335,7 @@
       options = options || {};
       options.alignment = this.options.menuOrientation;
       options.handle = this.options.menuHandle;
-      
+
       return new Menu(this, name, options);
     },
 
@@ -426,7 +426,7 @@
       this.canvasTempLeftOriginal = e.pageX;
       this.canvasTempTopOriginal = e.pageY;
     },
-    
+
     _drawShapeMove: function (e, factor) {
       var xo = this.canvasTempLeftOriginal,
           yo = this.canvasTempTopOriginal;
@@ -446,7 +446,7 @@
       .css({left: e.left, top: e.top})
       .attr('width', e.width)
       .attr('height', e.height);
-      
+
       // store these for later to use in our "up" call
       this.canvasTempLeftNew = e.left;
       this.canvasTempTopNew = e.top;
@@ -498,7 +498,7 @@
       var imageData = ctx.getImageData(0, 0, this.width, this.height),
           pixelArray = imageData.data,
           base = ((pos.y * imageData.width) + pos.x) * 4;
-      
+
       return {
         r: pixelArray[base],
         g: pixelArray[base + 1],
@@ -521,15 +521,15 @@
 
     this.generate();
   }
-  
+
   Menu.prototype = {
     generate: function () {
       this.$menu = $('<div class="wPaint-menu"></div>');
       this.$menuHolder = $('<div class="wPaint-menu-holder wPaint-menu-name-' + this.name + '"></div>');
-      
+
       if (this.options.handle) { this.$menuHandle = this._createHandle(); }
       else { this.$menu.addClass('wPaint-menu-nohandle'); }
-      
+
       if (this.type === 'primary') {
 
         // store the primary menu in primary object - we will need this reference later
@@ -545,7 +545,7 @@
       // append menu items
       this.$menu.append(this.$menuHolder.append(this.$menuHandle));
       this.reset();
-      
+
       // append menu
       this.wPaint.$el.append(this.$menu);
 
@@ -565,7 +565,7 @@
 
         // only add unique (new) items (icons)
         if (!this.$menuHolder.children('.wPaint-menu-icon-name-' + key).length) {
-          
+
           // add the item name, we will need this internally
           menu.items[key].name = key;
 
@@ -617,7 +617,7 @@
         else {
           this.dockOffset.left = this.wPaint.menus.primary.$menu.outerWidth(true);
         }
-      }   
+      }
     },
 
     /************************************
@@ -652,7 +652,7 @@
 
       // the drag/snap events for menus are tricky
       // init handle for ALL menus, primary menu will drag a secondary menu with it, but that is un/binded in the toggle function
-      this.$menu.draggable({handle: $handle});
+      this.$menu.draggable({handle: $handle, containment: 'parent'});
 
       // if it's a secondary menu we want to check for snapping
       // on drag we set docked to false, on snap we set it back to true
@@ -746,7 +746,7 @@
         .attr('title', item.title)
         .off('click.setIcon')
         .on('click.setIcon', setIconClick);
-        
+
         // run the callback right away when we select an option
         $icon.children('.wPaint-menu-icon-img').css(css);
         item.callback.apply(_this.wPaint, []);
@@ -845,7 +845,7 @@
 
       // make sure to loop using parent object - don't use .wPaint-menu-secondary otherwise we would hide menu for all canvases
       for (var menu in menus) {
-        if (menus[menu] && menus[menu].type === 'secondary') { menus[menu].$menu.hide(); }  
+        if (menus[menu] && menus[menu].type === 'secondary') { menus[menu].$menu.hide(); }
       }
 
       $el.siblings('.active').removeClass('active');
@@ -1122,7 +1122,7 @@
       this.each(runOpts);
 
       if (values.length) { return values.length === 1 ? values[0] : values; }
-      
+
       return this;
     }
 
@@ -1138,12 +1138,12 @@
    ************************************************************************/
   $.fn.wPaint.extend = function (funcs, protoType) {
     var key;
-    
+
     function elEach(func) {
       if (protoType[func]) {
         var tmpFunc = Paint.prototype[func],
             newFunc = funcs[func];
-        
+
         protoType[func] = function () {
           tmpFunc.apply(this, arguments);
           newFunc.apply(this, arguments);
