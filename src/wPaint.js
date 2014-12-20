@@ -695,7 +695,7 @@
       }
 
       $icon
-      .attr('title', item.title)
+      .attr('title', this.wPaint.getTitle(item.name))
       .on('mousedown', $.proxy(this.wPaint._closeSelectBoxes, this.wPaint, item))
       .on('mouseenter', mouseenter)
       .on('mouseleave', mouseleave)
