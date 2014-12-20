@@ -928,7 +928,7 @@
       }
       // vertical we'll pop to the right
       else {
-        $selectHolder.css({left: $icon.children('.wPaint-menu-icon-img').realWidth('outer', true, this.wPaint.$el), top: 0});
+        $selectHolder.css({left: $icon.children('.wPaint-menu-icon-img').realWidth('outer', true, this.wPaint.$el), bottom: 0});
       }
 
       $icon
